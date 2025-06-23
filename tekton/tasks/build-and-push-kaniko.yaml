@@ -15,4 +15,14 @@ spec:
     - --dockerfile=$(workspaces.source.path)/Dockerfile
     - --destination=$(params.imageUrl)
     - --context=$(workspaces.source.path)
+    env:
+    - name: DOCKER_CONFIG
+      value: /tekton/home/.docker
+    volumeMounts:
+    - name: docker-config
+      mountPath: /tekton/home/.docker
+  volumes:
+  - name: docker-config
+    secret:
+      secretName: dockerhub-credentials
 

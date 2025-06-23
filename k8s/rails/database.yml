@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  timeout: 5000
+  username: <%= ENV.fetch("DB_USERNAME") %>
+  password: <%= ENV.fetch("DB_PASSWORD") %>
+  host: <%= ENV.fetch("DB_HOST") %>
+  database: <%= ENV.fetch("DB_NAME") %>
+  port: 5432
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+  database: myapp_test
+
+production:
+  <<: *default
+

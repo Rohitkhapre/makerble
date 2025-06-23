@@ -18,8 +18,19 @@ spec:
         ports:
         - containerPort: 3000
         env:
+        - name: RAILS_ENV
+          value: "development"
+        - name: DB_USERNAME
+          value: postgres
+        - name: DB_PASSWORD
+          value: postgres123
+        - name: DB_HOST
+          value: postgres-service
+        - name: DB_NAME
+          value: dev
         - name: DATABASE_URL
-          value: "postgres://postgres:password@postgres-service:5432"
+          value: "postgres://$(DB_USERNAME):$(DB_PASSWORD)@$(DB_HOST):5432/$(DB_NAME)"
+
         readinessProbe:
           httpGet:
             path: /health
@@ -32,3 +43,4 @@ spec:
             port: 3000
           initialDelaySeconds: 20
           periodSeconds: 10
+

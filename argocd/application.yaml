@@ -1,18 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: devops-app
+  name: rails-app
+  namespace: argocd
 spec:
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
   project: default
   source:
-    repoURL: https://github.com/Rohitkhapre/makerble.git
+    repoURL: git@github.com:Rohitkhapre/makerble.git
     targetRevision: HEAD
     path: k8s
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: default
   syncPolicy:
     automated:
-      selfHeal: true
       prune: true
-
+      selfHeal: true
